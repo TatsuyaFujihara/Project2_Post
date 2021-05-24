@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Http\Requests\CreatePostRequest;
+use App\Http\Requests\PostRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\User;
 
 
 class PostController extends Controller
@@ -12,9 +14,8 @@ class PostController extends Controller
 // 投稿一覧表示
 public function index(Request $request)
 {
-    $posts = Post::all();
-    $user = \Auth::user();
-    return view('post/index', compact('posts', 'user'));
+    $dates = Post::with('user')->get();
+    return view('post/index', compact('dates'));
 }
 
 // 新規投稿画面
@@ -24,14 +25,9 @@ public function create()
 }
 
 // 新規投稿
-public function store(Request $request)
+public function store(PostRequest $request)
 {
     $user = \Auth::user();
-
-    $validatedData = $request->validate([
-        'title' => 'required|unique:posts|max:20',
-        'content' => 'required|max:140',
-    ]);
     Post::create([
         'title' => $request->title,
         'content' => $request->content,
@@ -48,7 +44,7 @@ public function edit($id)
 }
 
 // 編集情報更新
-public function update(Request $request, $id)
+public function update(PostRequest $request, $id)
 {
     $update = ([
         'title' => $request->title,
