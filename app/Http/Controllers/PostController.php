@@ -7,14 +7,14 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 use App\User;
-
+use App\Like;
 
 class PostController extends Controller
 {    
 // 投稿一覧表示
 public function index(Request $request)
 {
-    $dates = Post::with('user')->get();
+    $dates = Post::all();
     return view('post/index', compact('dates'));
 }
 
@@ -27,7 +27,7 @@ public function create()
 // 新規投稿
 public function store(PostRequest $request)
 {
-    $user = \Auth::user();
+    $user = Auth::user();
     Post::create([
         'title' => $request->title,
         'content' => $request->content,
