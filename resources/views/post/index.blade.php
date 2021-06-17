@@ -31,7 +31,7 @@
 
     {{-- いいね機能 --}}
     @if($date->like_post()->where('user_id', Auth::id())->exists())
-        <form method="get" action="{{ route('unlike', ['id' => $date->id]) }}">
+        <form method="post" action="{{ route('unlike', ['id' => $date->id]) }}">
             @csrf
             @method('DELETE')
             <button type="submit">
@@ -41,9 +41,9 @@
         </form>
     @else
     {{-- いいね取り消し機能 --}}
-        <form method="get" action="{{ route('like', ['id' => $date->id]) }}">
+        <form method="post" action="{{ route('like', ['id' => $date->id]) }}">
             @csrf
-            @method('GET')
+            @method('POST')
             <button type="submit">
                 <i class="far fa-heart"></i>
                 <p>いいね数：{{ $date->like_post()->count() }}</p>
