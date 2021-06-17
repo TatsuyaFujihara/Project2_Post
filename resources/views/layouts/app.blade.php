@@ -65,6 +65,18 @@
                                         @csrf
                                     </form>
                                 </div>
+
+                                <div>
+                                    <a href="{{ route('post.index') }}">
+                                        みんなの投稿
+                                    </a>
+                                </div>
+
+                                <div>
+                                    <a href="{{ route('post.create') }}">
+                                        投稿を作成
+                                    </a>
+                                </div>
                             </li>
                         @endguest
                     </ul>

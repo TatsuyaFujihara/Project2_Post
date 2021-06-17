@@ -15,6 +15,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+// Route::get('/test', 'TestController@index')->name('test');
+// ToDoアプリケーション
+Route::resource('post', 'PostController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy',]]);
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
