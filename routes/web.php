@@ -15,11 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-// Route::get('/test', 'TestController@index')->name('test');
-// ToDoアプリケーション
+// Post機能
 Route::resource('post', 'PostController', ['only' => ['index', 'create', 'store', 'edit', 'update', 'destroy',]]);
+
+// Like機能
+Route::post('post/like/{id}', 'LikeController@like')->name('like');
+// unLike機能
+Route::delete('post/unlike/{id}', 'LikeController@unlike')->name('unlike');
+
 
 Auth::routes();
 
